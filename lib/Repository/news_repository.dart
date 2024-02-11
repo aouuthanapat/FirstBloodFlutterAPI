@@ -6,18 +6,17 @@ import 'package:http/http.dart' as http;
 
 class NewsRepository {
 
-  Future <NewsChannelsHeadlinesModel> fetchNewChannelHeadlinesApi() async {
-    String url =
-        'https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=69418a59f60b4861b26ca700757532c1';
-
+  Future<NewsChannelsHeadlinesModel> fetchNewChannelHeadlinesApi(String channelName)async{
+    String url = 'https://newsapi.org/v2/top-headlines?sources=${channelName}&apiKey=69418a59f60b4861b26ca700757532c1' ;
+    print(url);
     final response = await http.get(Uri.parse(url));
     if (kDebugMode) {
       print(response.body);
     }
-    if (response.statusCode == 200) {
+    if(response.statusCode == 200){
       final body = jsonDecode(response.body);
       return NewsChannelsHeadlinesModel.fromJson(body);
     }
-    throw Exception('Ошибка.');
+    throw Exception('Error');
   }
 }

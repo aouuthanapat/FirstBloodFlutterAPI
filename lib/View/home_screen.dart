@@ -6,6 +6,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+
+enum FilterList { bbcNews, aryNews, independent, reuters, cnn, alJazeera }
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -17,7 +19,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   NewsViewModel newsViewModel = NewsViewModel();
 
+  FilterList? selectedMenu;
+
   final format = DateFormat('MMMM dd, yyyy');
+  String name = 'bbc-news';
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +40,42 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         title: Text('News', style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w700),),
+        centerTitle: true,
+        actions: [
+          PopupMenuButton <FilterList>(
+            initialValue: selectedMenu,
+              icon: const Icon(Icons.more_vert, color: Colors.black,),
+              onSelected: (FilterList item) {
+
+              if (FilterList.bbcNews.name == item.name) {
+                name = 'bbc-news';
+              }
+              if (FilterList.aryNews.name == item.name) {
+                name = 'ary-news';
+              }
+              if (FilterList.alJazeera.name == item.name) {
+                name = 'al-jazeera-english';
+              }
+              setState(() {
+                selectedMenu = item;
+              });
+              },
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<FilterList>> [
+                const PopupMenuItem <FilterList>(
+                  value: FilterList.bbcNews,
+                  child: Text('BBC News'),
+                ),
+                const PopupMenuItem <FilterList>(
+                  value: FilterList.aryNews,
+                  child: Text('Ary News'),
+                ),
+                const PopupMenuItem <FilterList>(
+                  value: FilterList.alJazeera,
+                  child: Text('Al-Jazeera News'),
+                ),
+              ]
+          )
+        ],
       ),
       body: ListView(
         children: [
@@ -42,10 +83,10 @@ class _HomeScreenState extends State<HomeScreen> {
             height: height * .55,
             width: width,
             child: FutureBuilder<NewsChannelsHeadlinesModel> (
-              future: newsViewModel.fetchNewChannelHeadlinesApi(),
+              future: newsViewModel.fetchNewChannelHeadlinesApi(name),
               builder: (BuildContext context, snapshot) {
                 if(snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
+                  return const Center(
                     child: SpinKitCircle(
                       size: 50,
                       color: Colors.blue,
@@ -73,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                    imageUrl: snapshot.data!.articles![index].urlToImage.toString(),
                                    fit: BoxFit.cover,
                                    placeholder: (context, url) => Container(child: spinKit2,),
-                                   errorWidget: (context, url, error) => Icon(Icons.error_outline, color: Colors.red,),
+                                   errorWidget: (context, url, error) => const Icon(Icons.error_outline, color: Colors.red,),
                                  ),
                                ),
                              ),
