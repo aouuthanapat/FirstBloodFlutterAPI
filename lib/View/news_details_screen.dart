@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+
+const Color myColor = Color(0xFF800000);
 class NewsDetailsScreen extends StatefulWidget {
 
   final String newImage, newsTitle, newsDate, author, description, content, source;
@@ -42,22 +44,22 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
           SizedBox(
             height: height * .45,
             child: ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30),
                 topRight: Radius.circular(30),
               ),
               child: CachedNetworkImage(
                 imageUrl: widget.newImage,
                 fit: BoxFit.cover,
-                placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
               ),
             ),
           ),
           Container(
             height: height * .6,
             margin: EdgeInsets.only(top: height * .4),
-            padding: EdgeInsets.only(top: 20, right: 20, left: 20),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
+            decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30),
@@ -70,7 +72,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                 SizedBox(height: height * .02,),
                 Row(
                   children: [
-                    Expanded(child: Text(widget.source, style: GoogleFonts.poppins(fontSize: 13, color: Colors.black87, fontWeight: FontWeight.w600),)),
+                    Expanded(child: Text(widget.source, style: GoogleFonts.poppins(fontSize: 13, color: myColor, fontWeight: FontWeight.w600),)),
                     Text(format.format(dateTime), style: GoogleFonts.poppins(fontSize: 13, color: Colors.black87, fontWeight: FontWeight.w500),),
                   ],
                 ),

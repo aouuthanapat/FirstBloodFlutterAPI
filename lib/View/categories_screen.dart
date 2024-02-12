@@ -1,11 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_api/Model/categories_new_model.dart';
+import 'package:flutter_api/View/home_screen.dart';
 import 'package:flutter_api/ViewModel/news_view_model.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+
+const Color myColor = Color(0xFF800000);
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
 
@@ -57,7 +60,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         padding: const EdgeInsets.only(right: 12),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: categoryName == categoriesList[index] ? Colors.blue : Colors.grey,
+                            color: categoryName == categoriesList[index] ? Colors.grey : myColor,
                             borderRadius: BorderRadius.circular(20)
                           ),
                           child: Padding(
@@ -73,7 +76,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   }
               ),
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Expanded(
               child: FutureBuilder<CategoriesNewsModel> (
                 future: newsViewModel.fetchCategoriesNewsApi(categoryName),
@@ -82,7 +85,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     return const Center(
                       child: SpinKitCircle(
                         size: 50,
-                        color: Colors.blue,
+                        color: myColor,
                       ),
                     );
                   } else {
@@ -101,19 +104,19 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                     fit: BoxFit.cover,
                                     height: height * .18,
                                     width: width * .3,
-                                    placeholder: (context, url) => Container(child: Center(
+                                    placeholder: (context, url) => const Center(
                                       child: SpinKitCircle(
                                         size: 50,
-                                        color: Colors.blue,
+                                        color: myColor,
                                       ),
-                                    ),),
-                                    errorWidget: (context, url, error) => const Icon(Icons.error_outline, color: Colors.red,),
+                                    ),
+                                    errorWidget: (context, url, error) => const Icon(Icons.error_outline, color: myColor,),
                                   ),
                                 ),
                                 Expanded(
                                   child: Container(
                                     height: height * .18,
-                                    padding: EdgeInsets.only(left: 15),
+                                    padding: const EdgeInsets.only(left: 15),
                                     child: Column(
                                       children: [
                                         Text(snapshot.data!.articles![index].title.toString(),
@@ -125,14 +128,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
                                           ),
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(snapshot.data!.articles![index].source!.name.toString(),
                                               style: GoogleFonts.poppins(
                                                 fontSize: 11,
-                                                color: Colors.black54,
+                                                color: myColor,
                                                 fontWeight: FontWeight.w600,
 
                                               ),

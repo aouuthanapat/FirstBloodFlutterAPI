@@ -9,8 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../Model/categories_new_model.dart';
-
-
+const Color myColor = Color(0xFF800000);
 enum FilterList { bbcNews, aryNews, independent, reuters, cnn, alJazeera }
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => CategoriesScreen()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const CategoriesScreen()));
           },
           icon: Image.asset('images/category_icon.png',
         height: 30,
@@ -95,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return const Center(
                     child: SpinKitCircle(
                       size: 50,
-                      color: Colors.blue,
+                      color: myColor,
                     ),
                   );
                 } else {
@@ -133,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                      imageUrl: snapshot.data!.articles![index].urlToImage.toString(),
                                      fit: BoxFit.cover,
                                      placeholder: (context, url) => Container(child: spinKit2,),
-                                     errorWidget: (context, url, error) => const Icon(Icons.error_outline, color: Colors.red,),
+                                     errorWidget: (context, url, error) => const Icon(Icons.error_outline, color: myColor,),
                                    ),
                                  ),
                                ),
@@ -147,13 +146,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                    ),
                                    child: Container(
                                      alignment: Alignment.bottomCenter,
-                                     padding: EdgeInsets.all(15),
+                                     padding: const EdgeInsets.all(15),
                                      height: height * .22,
                                      child: Column(
                                        mainAxisAlignment: MainAxisAlignment.center,
                                        crossAxisAlignment: CrossAxisAlignment.center,
                                        children: [
-                                         Container(
+                                         SizedBox(
                                            width: width * 0.7,
                                            child: Text(snapshot.data!.articles![index].title.toString(),
                                              maxLines: 2,
@@ -162,8 +161,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                              GoogleFonts.poppins(fontSize: 17, fontWeight: FontWeight.w700),
                                              ),
                                          ),
-                                         Spacer(),
-                                         Container(
+                                         const Spacer(),
+                                         SizedBox(
                                            width: width * 0.7,
                                            child: Row(
                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -172,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                  maxLines: 2,
                                                  overflow: TextOverflow.ellipsis,
                                                  style:
-                                                 GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w600),
+                                                 GoogleFonts.poppins(fontSize: 13,color: myColor, fontWeight: FontWeight.w600),
                                                ),
                                                Text(format.format(dateTime),
                                                  maxLines: 2,
@@ -207,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return const Center(
                     child: SpinKitCircle(
                       size: 50,
-                      color: Colors.blue,
+                      color: myColor,
                     ),
                   );
                 } else {
@@ -227,19 +226,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fit: BoxFit.cover,
                                   height: height * .18,
                                   width: width * .3,
-                                  placeholder: (context, url) => Container(child: Center(
+                                  placeholder: (context, url) => const Center(
                                     child: SpinKitCircle(
                                       size: 50,
-                                      color: Colors.blue,
+                                      color: myColor,
                                     ),
-                                  ),),
-                                  errorWidget: (context, url, error) => const Icon(Icons.error_outline, color: Colors.red,),
+                                  ),
+                                  errorWidget: (context, url, error) => const Icon(Icons.error_outline, color: myColor,),
                                 ),
                               ),
                               Expanded(
                                 child: Container(
                                   height: height * .18,
-                                  padding: EdgeInsets.only(left: 15),
+                                  padding: const EdgeInsets.only(left: 15),
                                   child: Column(
                                     children: [
                                       Text(snapshot.data!.articles![index].title.toString(),
@@ -251,14 +250,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                         ),
                                       ),
-                                      Spacer(),
+                                      const Spacer(),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(snapshot.data!.articles![index].source!.name.toString(),
                                             style: GoogleFonts.poppins(
                                               fontSize: 11,
-                                              color: Colors.black54,
+                                              color: myColor,
                                               fontWeight: FontWeight.w600,
 
                                             ),
@@ -291,6 +290,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 const spinKit2 = SpinKitFadingCircle(
-  color: Colors.amber,
+  color: myColor,
   size: 50,
 );

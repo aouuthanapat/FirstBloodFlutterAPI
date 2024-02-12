@@ -4,6 +4,9 @@ import 'package:flutter_api/View/home_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+const Color myColor = Color(0xFF800000);
+const Color textColor = Color(0xFF7D7D7D);
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -17,36 +20,31 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer (Duration(seconds: 2), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    Timer (const Duration(seconds: 2), () {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
 
     });
   }
-
-
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height * 1;
     final width = MediaQuery.sizeOf(context).width * 1;
     return Scaffold(
-        body: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('images/loading.jpg',
-                fit: BoxFit.cover,
-                height: height * .5,
-              ),
-              SizedBox(height: height * 0.04,),
-              Text('TOP HEADLINES', style: GoogleFonts.anton(letterSpacing: .6, color: Colors.grey.shade700),),
-              SizedBox(height: height * 0.04,),
-              SpinKitChasingDots(
-                color: Colors.blue,
-                size: 40,
-              )
-            ],
-          ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('images/loading.jpg',
+              fit: BoxFit.cover,
+              height: height * .5,
+            ),
+            SizedBox(height: height * 0.04,),
+            Text('TOP HEADLINES', style: GoogleFonts.anton(letterSpacing: .6, fontSize: 30, color: textColor),),
+            SizedBox(height: height * 0.04,),
+            const SpinKitChasingDots(
+              color: textColor,
+              size: 40,
+            )
+          ],
         )
     );
   }
