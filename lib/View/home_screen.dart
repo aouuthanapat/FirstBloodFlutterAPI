@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_api/Model/news_channel_headlines_model.dart';
+import 'package:flutter_api/View/categories_screen.dart';
 import 'package:flutter_api/ViewModel/news_view_model.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+
+import '../Model/categories_new_model.dart';
 
 
 enum FilterList { bbcNews, aryNews, independent, reuters, cnn, alJazeera }
@@ -33,7 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => CategoriesScreen()));
+          },
           icon: Image.asset('images/category_icon.png',
         height: 30,
         width: 40,
@@ -79,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: ListView(
         children: [
-          Container(
+          SizedBox(
             height: height * .55,
             width: width,
             child: FutureBuilder<NewsChannelsHeadlinesModel> (
@@ -174,6 +179,93 @@ class _HomeScreenState extends State<HomeScreen> {
                        );
                      }
                  );
+                }
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: FutureBuilder<CategoriesNewsModel> (
+              future: newsViewModel.fetchCategoriesNewsApi('General'),
+              builder: (BuildContext context, snapshot) {
+                if(snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: SpinKitCircle(
+                      size: 50,
+                      color: Colors.blue,
+                    ),
+                  );
+                } else {
+                  return ListView.builder(
+                      itemCount: snapshot.data!.articles!.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        DateTime dateTime = DateTime.parse(snapshot.data!.articles![index].publishedAt.toString());
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 15),
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: CachedNetworkImage(
+                                  imageUrl: snapshot.data!.articles![index].urlToImage.toString(),
+                                  fit: BoxFit.cover,
+                                  height: height * .18,
+                                  width: width * .3,
+                                  placeholder: (context, url) => Container(child: Center(
+                                    child: SpinKitCircle(
+                                      size: 50,
+                                      color: Colors.blue,
+                                    ),
+                                  ),),
+                                  errorWidget: (context, url, error) => const Icon(Icons.error_outline, color: Colors.red,),
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  height: height * .18,
+                                  padding: EdgeInsets.only(left: 15),
+                                  child: Column(
+                                    children: [
+                                      Text(snapshot.data!.articles![index].title.toString(),
+                                        maxLines: 3,
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 15,
+                                          color: Colors.black54,
+                                          fontWeight: FontWeight.w700,
+
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(snapshot.data!.articles![index].source!.name.toString(),
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 11,
+                                              color: Colors.black54,
+                                              fontWeight: FontWeight.w600,
+
+                                            ),
+                                          ),
+                                          Text(format.format(dateTime),
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      }
+                  );
                 }
               },
             ),
