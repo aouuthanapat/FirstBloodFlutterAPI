@@ -1,8 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_api/Model/categories_new_model.dart';
-import 'package:flutter_api/View/home_screen.dart';
-import 'package:flutter_api/ViewModel/news_view_model.dart';
+import 'package:flutter_api/data/Model/categories_new_model.dart';
+import 'package:flutter_api/presentation/ViewModel/news_view_model.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';

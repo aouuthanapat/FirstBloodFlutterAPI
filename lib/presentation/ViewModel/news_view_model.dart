@@ -1,8 +1,8 @@
 
 
-import 'package:flutter_api/Model/categories_new_model.dart';
-import 'package:flutter_api/Model/news_channel_headlines_model.dart';
-import 'package:flutter_api/Repository/news_repository.dart';
+import 'package:flutter_api/data/Model/categories_new_model.dart';
+import 'package:flutter_api/data/Model/news_channel_headlines_model.dart';
+import 'package:flutter_api/domain/Repository/news_repository.dart';
 
 class NewsViewModel {
 

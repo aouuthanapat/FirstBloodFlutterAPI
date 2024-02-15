@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_api/Model/news_channel_headlines_model.dart';
-import 'package:flutter_api/View/categories_screen.dart';
-import 'package:flutter_api/View/news_details_screen.dart';
-import 'package:flutter_api/ViewModel/news_view_model.dart';
+import 'package:flutter_api/data/Model/news_channel_headlines_model.dart';
+import 'package:flutter_api/presentation/View/categories_screen.dart';
+import 'package:flutter_api/presentation/View/news_details_screen.dart';
+import 'package:flutter_api/presentation/ViewModel/news_view_model.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import '../../data/Model/categories_new_model.dart';
 
-import '../Model/categories_new_model.dart';
 const Color myColor = Color(0xFF800000);
 enum FilterList { bbcNews, aryNews, independent, reuters, cnn, alJazeera }
 class HomeScreen extends StatefulWidget {

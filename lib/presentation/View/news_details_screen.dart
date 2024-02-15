@@ -29,7 +29,6 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final width = MediaQuery.sizeOf(context).width * 1;
     final height = MediaQuery.sizeOf(context).height * 1;
 
     DateTime dateTime = DateTime.parse(widget.newsDate);
